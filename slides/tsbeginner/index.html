@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TypeScriptを使う場面、使わない場面</title>
+    <script src="js/html5pawapo.js"></script>
+    <link rel="stylesheet" href="css/lib/inuit/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="slides">
+    <section class="slide">
+        <h1 class="slide-title">TypeScriptを使う場面、使わない場面</h1>
+        <p class="author">Shota Kubota</p>
+        <time datetime="2013-08-24">2013/08/24</time>
+    </section>
+    <section class="slide">
+        <h2>自己紹介</h2>
+        <ul>
+            <li><a href="//twitter.com/kubosho_">kubosho_</a>といいます</li>
+            <li><a href="//grani.jp/">株式会社グラニ</a>でフロントエンドエンジニアとして勤務しています</li>
+            <li><a href="//inputxoutput.com/">input*output</a>という、学んだ事をアウトプットしていく技術ブログ書いてます</li>
+        </ul>
+    </section>
+    <section class="slide">
+        <h2>目次</h2>
+        <h3>今日話すこと</h3>
+        <ul>
+            <li>
+                TypeScriptの特徴とメリット
+            </li>
+            <li>TypeScriptを使う場面、使わない場面</li>
+        </ul>
+        <div style="color: #999;">
+            <h3>今日話さないこと</h3>
+            <ul>
+                <li>JavaScriptがなぜダメかうんぬん</li>
+                <li>HaxeやJSX、CoffeeScriptなどと比べて、機能やパフォーマンスはどうかうんぬん</li>
+            </ul>
+        </div>
+    </section>
+    <section class="slide">
+        <h1 class="section-title">TypeScriptの特徴とメリット</h1>
+    </section>
+    <section class="slide">
+        <h2>TypeScriptが生まれた理由</h2>
+        <a href="http://blogs.msdn.com/b/somasegar/archive/2012/10/01/typescript-javascript-development-at-application-scale.aspx">TypeScript: JavaScript Development at Application Scale - Somasegar&apos;s blog - Site Home - MSDN Blogs</a>
+        <blockquote>With these developments, we’re starting to see applications of unprecedented size written with JavaScript, despite the fact that creating large-scale JavaScript applications is hard. TypeScript makes it easier.</blockquote>
+        <ul>
+            <li>JavaScriptによる大規模なアプリケーション開発は困難</li>
+            <li>それでも今まで経験したことない大規模なアプリケーションの開発をしている</li>
+            <li>大規模なアプリケーション開発を楽にするためTypeScriptは生まれた</li>
+        </ul>
+    </section>
+    <section class="slide">
+        <h2>TypeScriptでの開発を楽にしてくれる4つの特徴</h2>
+        <ol>
+            <li>型</li>
+            <li>クラス</li>
+            <li>モジュール</li>
+            <li>インターフェース</li>
+        </ol>
+    </section>
+    <section class="slide">
+        <h2>型</h2>
+        <p>変数や引数などに型を指定できる</p>
+        <ul>
+            <li>基本的な型(プリミティブ型)<br />number, boolean, string, enum, null, undefined</li>
+            <li>オブジェクト型<br />class, module, interface</li>
+            <li>なんでも入れられる型(JavaScriptの変数の型に対応)<br />any</li>
+            <li>関数の返り値がない事を示す型<br />void</li>
+        </ul>
+    </section>
+    <section class="slide">
+        <h2>型指定の例</h2>
+        <pre>
+            <code>
+// 変数を宣言する際に、変数名のすぐ後ろにコロンと型を書くことにより、型が指定できる
+var name: string = "hoge";
+
+// 型指定を省略した場合は、型推論によって変数の型が決まる
+var name = "hoge"; // 型推論により var name: string = "hoge"; と同じ意味になる
+var age = 30; // 型推論により var name: number = 30; と同じ意味になる
+
+// function文やfunction式では、引数と返り値に型を指定可能
+function parseNumber(str: string) : number {
+    // hogehoge
+}
+var parseNumber: (str: string) => number = function (str: string): number {
+    // hogehoge
+};
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h2>クラス</h2>
+        <ul>
+            <li>ECMAScript 6で提案されているclassを先取りしている</li>
+            <li>現在のJavaScriptでクラスっぽいことをしようとするとすごく面倒くさい</li>
+            <li>TypeScriptを使うことにより、簡潔にクラスが書ける</li>
+        </ul>
+        <p>クラスっぽいことデモ(参考: <a href="http://d.hatena.ne.jp/teramako/20130703/p1">JavaScript にクラスは作れますか？ - hogehoge @teramako</a>)</p>
+    </section>
+    <section class="slide">
+        <h2>モジュール</h2>
+        <ul>
+            <li>.NET Frameworkの名前空間に相当するもの</li>
+            <li>モジュール内のクラスや関数はexportの有無によって、外部に公開するかしないかを決められる</li>
+            <li>CommonJSやAMD Modulesにも対応</li>
+        </ul>
+    </section>
+    <section class="slide">
+        <h2>モジュールの例</h2>
+        <pre>
+            <code>
+module Say {
+     export class Message {
+         constructor(public message: string) {
+             this.message = message;
+             alert(this.message);
+         }
+     }
+ }
+
+ var message = new Say.Message("Hello, world");
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h2>インターフェース</h2>
+        <ul>
+            <li>クラスやオブジェクトにどういう実装をすべきか定めるもの</li>
+        </ul>
+    </section>
+    <section class="slide">
+        <h2>インターフェースの例</h2>
+        <pre>
+            <code>
+interface IPerson {
+    name: string;
+    birthday: Date;
+    hello: () => void;
+}
+
+class Person implements IPerson {
+    name: string = "kubosho_";
+    birthday: Date = new Date("10/11/1989");
+    hello: () => void = function () {
+        alert("My name is " + this.name);
+    };
+}
+
+var person = new Person();
+person.hello();
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h2>型やクラス、モジュールやインターフェースがあるメリット</h2>
+        <ul>
+            <li>型があることにより、どんな値が入ることを想定しているか一目で分かるようになる</li>
+            <li>
+                プログラムの設計をきちんとするようになる
+                <ul>
+                    <li>特徴として挙げた4つの機能ともに、設計してこそ生きてくる</li>
+                </ul>
+            </li>
+            <li>
+                結果的に、デバッグやテストがしやすくなったり、再利用性などが高まる
+            </li>
+        </ul>
+    </section>
+    <section class="slide">
+        <h1 class="section-title">TypeScriptを使う場面、使わない場面</h1>
+    </section>
+    <section class="slide">
+        <h2>TypeScriptを使う場面</h2>
+        <ul>
+            <li>
+                大規模なサービス
+                <ul>
+                    <li>ソーシャルゲーム</li>
+                    <li>ポータルサイト etc...</li>
+                </ul>
+            </li>
+        </ul>
+        <p>機能が複数あり、かつそれぞれが独立しているようなサービス<br />(ここのコードは共通で使いたいけど、ここのコードは個別のページで使いたい的な)</p>
+        <p>一つのJSファイルに全ての機能が書かれていたら、引き継ぐ人が死ぬといった時にTypeScriptを使うといいかもしれないです</p>
+    </section>
+    <section class="slide">
+        <h2>TypeScriptを使わない場面</h2>
+        <ul>
+            <li>モックのような、試しに書いて本番環境では使われないもの</li>
+            <li>コードの行数が200行までに収まるようなライブラリなど</li>
+        </ul>
+        <p>上記のような場面では、素のJavaScriptで書いたほうがたぶん早いです</p>
+    </section>
+    <section class="slide">
+        <h1 class="section-title">まとめ</h1>
+    </section>
+    <section class="slide">
+        <h2>まとめ</h2>
+        <ul>
+            <li>TypeScriptは大規模開発をしやすくする仕組みが備わっている</li>
+            <li>プログラムを設計する能力が必要になる</li>
+            <li>全てのコードをTypeScriptで書く必要はない</li>
+        </ul>
+    </section>
+    <section class="slide">
+        <p>ご静聴ありがとうございました</p>
+        <h3>参考資料</h3>
+        <ul>
+            <li><a href="http://phyzkit.net/typescript/">TypeScript クイックガイド - phyzkit.net</a></li>
+            <li><a href="http://www.typescriptlang.org/Content/TypeScript%20Language%20Specification.pdf">[PDF]TypeScript Language Specification</a></li>
+            <li><a href="http://msdn.microsoft.com/ja-jp/magazine/jj883955.aspx">JavaScript - TypeScript: .NET 開発者の JavaScript への抵抗をなくす</a></li>
+            <li><a href="http://blogs.msdn.com/b/chack/archive/2013/08/22/typescript-0.9.1.1-has-been-released-visual-studio-japanese-support.aspx">TypeScript 0.9.1.1 リリース ～ v.0.9 からは待望の Generics がサポートに - THE TRUTH IS OUT THERE - Site Home - MSDN Blogs</a></li>
+        </ul>
+    </section>
+</div>
+</body>
+</html>
