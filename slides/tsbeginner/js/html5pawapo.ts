@@ -73,6 +73,8 @@ class html5pawapo {
 
     // キーボードによる操作を可能にする
     keyBoardNavigation(event: KeyboardEvent) : void {
+        event.preventDefault();
+
         switch (event.keyCode) {
             case 78: // n
             case 74: // j

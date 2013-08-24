@@ -65,6 +65,8 @@ var html5pawapo = (function () {
     };
 
     html5pawapo.prototype.keyBoardNavigation = function (event) {
+        event.preventDefault();
+
         switch (event.keyCode) {
             case 78:
             case 74:
