@@ -97,7 +97,7 @@ class html5pawapo {
         var html5pawapo = new that.html5pawapo();
         html5pawapo.initialize();
         document.addEventListener("keydown", event => html5pawapo.keyBoardNavigation(event), false);
-        document.addEventListener("click", () => html5pawapo.nextPage(), false);
+        html5pawapo.parentElm.addEventListener("click", () => html5pawapo.nextPage(), false);
         window.addEventListener("resize", () => html5pawapo.setAdjustWindow(), false);
     }, false);
 })();

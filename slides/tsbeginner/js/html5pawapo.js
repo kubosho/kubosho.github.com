@@ -92,7 +92,7 @@ var html5pawapo = (function () {
         document.addEventListener("keydown", function (event) {
             return html5pawapo.keyBoardNavigation(event);
         }, false);
-        document.addEventListener("click", function () {
+        html5pawapo.parentElm.addEventListener("click", function () {
             return html5pawapo.nextPage();
         }, false);
         window.addEventListener("resize", function () {
